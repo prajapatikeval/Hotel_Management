@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <data>
+        <record id="bsi_add_room_form" model="ir.ui.view">
+            <field name="name">room.form</field>
+            <field name="model">room.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div style="display:flex; justify-content:space-between;">
+                            <group>
+                                <group>
+                                    <h1>
+                                        <field id="individual" class="text-break" name="room_name" default_focus="1" placeholder="e.g. Room Name" />
+                                    </h1>
+                                </group>
+                            </group>
+                                    <div style="display:flex; justify-content:center; gap:1em; width:fit-content; text-align:right; flex-direction:column;">
+                                        <field name="room_image" widget="image" class="oe_avatar" nolabel="1" options="{'size':[170,150]}"/>
+                                        <field name="rating_field" class="oe_avatar" widget="priority" nolabel="1" readonly="1" style="font-size:20px; padding-right:11px;"/>
+                                    </div>
+                            </div>
+                        <notebook>
+                            
+                            <page name="info" string="General Information">
+                                <separator string="ROOM PRICE &#38; STATUS" />
+                                <group>
+                                    <field name="room_price" placeholder="Room Price"/>
+                                    <!-- <field name="room_status"/> -->
+                                </group>
+                                
+                                <separator string="ROOM BED TYPE &#38; QUENTITY" />
+                                <group>
+                                    <field name="room_bed"/>
+                                    <field name="room_quentity"/>
+                                    
+                                </group>
+                                <group>
+                                    <group>                                        
+                                        <field name="available_rooms" readonly="True"/>
+                                    </group>
+                                    <group>                                        
+                                        <field name="occupied_rooms" readonly="True"/>
+                                    </group>
+                                    <group>                                        
+                                        <field name="under_maintenance_rooms" readonly="True"/>
+                                    </group>
+                                </group>
+                                
+                                <separator string="ROOM DESCRIPTION" />
+                                <group>
+                                    <field name="room_description" />
+                                </group>
+                                
+                                <separator string="ROOM POLICY" />
+                                <group>
+                                    <field name="room_policy" />
+                                </group>
+                                
+
+                            </page>
+                            <page name="room type" string="Rooms">
+                                <separator string="Rooms" />
+                                    <field name="room_ids" string=""> 
+                                        <tree editable="bottom">
+                                            <field name="room_seq"/> 
+                                            <field name="room_status"/>
+                                            <field name="occupied_by"/>
+                                            <field name="booking_status"/>
+                                        </tree> 
+                                    </field>
+                            </page>
+                            
+                            <page name="configuration" string="Configuration">
+
+                                <separator string="ROOM AMENITIES" />
+                                    <group>
+                                        <field name="room_services_ids" widget="many2many_tags" placeholder="Room Services" 
+                                            options="{'color_field': 'color'}"/>
+                                        <field name="room_facility_ids" widget="many2many_tags" placeholder="Room Facility" 
+                                            options="{'color_field': 'color'}"/>
+                                    </group>
+                                
+                                <separator string="NUMBER OF PERSON ALLOWED" />
+                                <group>
+                                    <group>
+                                        <field name="max_adult" />
+                                    </group>
+                                    <group>
+                                        <field name="max_child" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="offer" string="Offer">
+                                <group>
+                                    <field name="is_offer" widget="boolean_toggle" />
+                                    <field name="offer" widget="percentage" attrs="{'invisible':[('is_offer','=',False)]}"/>
+                                </group>
+                            </page>
+                            <page name="review" string="Review">
+                                <separator string="Rating"/>
+                                    <field name="average_rating"/>
+                                    
+                                <separator string="Review" />
+                                    <field name="room_review_ids" string=""> 
+                                        <tree editable="bottom">
+                                            <field name="room_review_id" string="User Name"/>   
+                                            <field name="room_review_date"/> 
+                                            <field name="room_review_email"/> 
+                                            <field name="room_review_description"/>
+                                            <field name="room_review_rate"/>
+                                        </tree> 
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Room TreeView -->
+        <record id="room_view_tree" model="ir.ui.view">
+            <field name="name">room.view.tree</field>
+            <field name="model">room.type</field>
+            <field name="arch" type="xml">
+                <tree string="Room Tree" default_order="room_price desc">
+                    <field name="room_name" />
+                    <field name="room_price" />
+                    <field name="room_quentity" />
+                    <field name="room_bed" />
+                    <field name="is_offer" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bsi_room_view_kanban" model="ir.ui.view">
+            <field name="name">room.view.kanban</field>
+            <field name="model">room.type</field>
+            <field name="arch" type="xml">
+                <!-- <kanban default_group_by="room_status"> -->
+                <kanban default_order="room_price desc">
+                    <field name="room_name" />
+                    <field name="room_price" />
+                    <field name="rating_field" />
+                    <field name="available_rooms" />
+                    <field name="room_quentity" />
+                    <field name="is_offer" />
+                    <field name="offer" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click" t-attf-style="border:1px solid #A5A5A5; padding:0px; margin:6px;">
+                                <div class="o_kanban_image" style="width:80px; height:auto;">
+                                    <field name="room_image" widget="image"/>
+                                </div>
+                                
+                                <div class="oe_kanban_details" t-attf-style="height:100%; ">
+                                    <div t-attf-style="display:flex; flex-direction:column; justify-content:space-between; padding-left:10px; height:100%;">
+                                        <div>
+                                            <strong class="o_kanban_record_title">
+                                                
+                                                <h5>
+                                                    <strong><t t-esc="record.room_name.value"/></strong>
+                                                </h5>
+                                                <div style="display:flex; gap:5px; align-items:center;">
+                                                    <strong style="background-color:#C4C4C4; border-radius:3px; padding:0.1em 1em;"><t t-esc="record.offer.value * (100)"/>% Off</strong> 
+                                                    <field name="rating_field" class="oe_avatar" widget="priority" nolabel="1" readonly="1"/>
+                                                </div>
+    
+                                            </strong>
+                                        </div>
+                                        <div style="display:flex; justify-content:end; text-align:right;">
+                                            <div style="display:flex; flex-direction:column; justify-content:end;  padding:0px 7px 2px 0px;">
+                                                <div>
+                                                    <strong style="background-color:#C4C4C4; border-radius:3px; padding:0.1em 0.7em;"><t t-esc="record.available_rooms.value"/>/<t t-esc="record.room_quentity.value"/> Available</strong> 
+                                                </div>
+                                                <div t-if="record.room_price.value">
+                                                    <strong style="background-color:#C4C4C4; border-radius:3px; padding:0.1em 0.7em;"><t t-esc="record.room_price.value"/> (Per Night)</strong> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+
+        <!-- Graph View -->
+        <record id="room_type_view_graph" model="ir.ui.view">
+            <field name="name">room.view.graph</field>
+            <field name="model">room.type</field>
+            <field name="arch" type="xml">
+                <graph string="booking detail" type="bar">
+                    
+                    <field name="room_name" type="row"/>
+                    
+                    <field name="available_rooms" type="col"/>
+                    <field name="occupied_rooms" type="col"/>
+                    <field name="under_maintenance_rooms" type="col"/> 
+                    
+                    <field name = "room_price" type="col"/>
+                    <field name="room_quentity" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="bsi_room_action" model="ir.actions.act_window">
+            <field name="name">Room Details</field>
+            <field name="res_model">room.type</field>
+            <field name="view_mode">tree,kanban,form,graph,pivot</field>
+            <field name="view_id" ref="bsi_room_view_kanban"/>
+        </record>
+
+    </data>
+    
+
+</odoo>

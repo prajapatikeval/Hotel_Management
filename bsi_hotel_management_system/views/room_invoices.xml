@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- booking creation form -->
+        <record id="bsi_add_room_invoice_form" model="ir.ui.view">
+            <field name="name">room.invoice.form</field>
+            <field name="model">room.invoices</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="set_to_not_paid" id="bsi_unregister_payment" class="oe_highlight" attrs="{'invisible':[('invoice_payment_status','!=','paid')]}" string="Unregister Payment"  type="object"/>
+                        <button name="%(bsi_hotel_management_system.register_payment_entry_wizard_action)d" class="oe_highlight"  
+                            attrs="{'invisible':[('invoice_payment_status','!=','not paid')]}" 
+                            string="Register Payment"  
+                            type="action"
+                            context="{'default_active_id':active_id}"/>
+                        
+                            
+                            <field name="invoice_status" widget="statusbar" />
+                            <field name="invoice_payment_status" invisible="1" />
+                    </header>
+
+                    <sheet>
+                        <widget name="web_ribbon" bg_color="bg-info" title="Not Paid" attrs="{'invisible':[('invoice_payment_status','!=','not paid')]}"/>
+                        <widget name="web_ribbon" title="Paid" attrs="{'invisible':[('invoice_payment_status','!=','paid')]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="invoice_reference"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="invoice_guest_name" />
+                                <field name="invoice_guest_email" />
+                                <field name = "invoice_check_in"  widget="daterange" options="{'related_end_date': 'invoice_check_out'}"/>
+                                <field name = "invoice_check_out" widget="daterange" options="{'related_start_date':'invoice_check_in'}"/>
+                            </group>
+                            <group>
+                                <field name="invoice_guest_phone" />
+                                <field name="invoice_guest_address" />
+                                <field name = "invoice_guest_state" />
+                                <field name = "invoice_guest_country"/>
+                            </group>
+                        </group>
+                            
+                        <notebook>
+                            <page name="Rooms" string="Rooms">
+                                
+                                <field name="invoice_ids"> 
+                                    <tree editable="bottom"> 
+                                        <field name="invoice_id" invisible="1"/>
+                                        <field name="room_id" />
+                                        <field name="price"/>
+                                        <field name="discount" widget="percentage"/> 
+                                        <field name="total_days"/> 
+                                        <field name="num_of_rooms"/> 
+                                        <field name="adult"/>
+                                        <field name="child"/>
+                                        <field name="sub_total"/>
+                                        <field name="checked_in" force_save="1" invisible="1"/>
+                                        <field name="checked_out" force_save="1" invisible="1"/>
+                                    </tree> 
+                                </field>
+                                <group class="oe_right" colspan="2" >
+                                    <field name="invoice_total" string="Sub Total" style="font-size:20px; font-wight:600;"/>
+                                    <field name="invoice_total_discount" string="Total Discount"/>
+                                    
+                                    <field name="invoice_grand_total" style="font-size:17px; font-wight:600;" />
+                                    
+                                </group>
+                                
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- List of invoices -->
+        <record id="bsi_view_room_invoice_tree" model="ir.ui.view">
+            <field name="name">room.booking.tree</field>
+            <field name="model">room.invoices</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_reference" />
+                    <field name="invoice_guest_name" />
+                    <field name="invoice_date" widget="date" options="{'format': 'MM/dd/yyyy'}" />
+                    <field name = "invoice_grand_total"/>
+                    <field name="invoice_payment_status" widget="badge" decoration-danger="invoice_payment_status=='not paid'" decoration-success="invoice_payment_status=='paid'"/>
+                    <field name="invoice_status" widget="badge"  decoration-success="invoice_status=='posted'" decoration-info="invoice_status=='draft'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bsi_invoice_view_search" model="ir.ui.view">
+            <field name="name">bsi_invoice.view.search</field>
+            <field name="model">room.invoices</field>
+            <field name="arch" type="xml">
+                <search>
+                    <searchpanel>
+                        <field name="invoice_payment_status" select="multi" icon="fa-users" enable_counters="1"/>
+                        <field name="invoice_status" select="multi" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <!-- Graph -->
+        <record id="room_invoices_view_graph" model="ir.ui.view">
+            <field name="name">room.invoices.view.graph</field>
+            <field name="model">room.invoices</field>
+            <field name="arch" type="xml">
+                <graph string="booking detail" type="pie" >
+                    <field name="invoice_payment_status" type="row"/>
+                    <field name = "invoice_grand_total" type="measure" operator="count"/>  
+                </graph>
+            </field>
+        </record>
+
+        <!-- Pivot -->
+        <record id="room_invoices_view_pivot" model="ir.ui.view">
+            <field name="name">room.invoices.view.pivot</field>
+            <field name="model">room.invoices</field>
+            <field name="arch" type="xml">
+                <pivot string="booking detail">
+                    <field name="invoice_reference" type="row"/>
+                    <field name="invoice_guest_name" type="row"/>
+                    <field name="invoice_payment_status" type="column"/>
+                    <field name="invoice_status" type="column"/>
+                    <field name = "invoice_grand_total" type="column"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Calling tour list(Tree) and form -->
+        <record id="bsi_room_invoices" model="ir.actions.act_window">
+            <field name="name">Room Invoices</field>
+            <field name="res_model">room.invoices</field>
+            <!-- <field name="view_mode">tree,kanban,form,graph,pivot</field> -->
+            <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="view_id" ref="bsi_view_room_invoice_tree"/>
+        </record>
+    
+</data>
+</odoo>

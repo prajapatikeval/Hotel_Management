@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <data>
+        
+        
+
+        <record id="bsi_add_service_form" model="ir.ui.view">
+            <field name="name">service.form</field>
+            <field name="model">service</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="service_image" widget="image" options='{"size":[220,180]}' />
+                                <field name="service_name" placeholder="Service Name"/>
+                            </group>
+                            <group>
+                                <field name="color" widget="color_picker"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            
+                            <page name="information" string="Service Providers">
+                                <separator string="Service Providers" />
+                                <field name="service_provider_ids" string=""> 
+                                    <tree editable="bottom">
+                                        <field name="service_partner_id" string="Provider Name"/>
+                                        <field name="provider_address"/>
+                                        <field name="provider_email"/>
+                                        <field name="provider_phone"/>
+                                    </tree> 
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="bsi_service_view_kanban" model="ir.ui.view">
+            <field name="name">service.view.kanban</field>
+            <field name="model">service</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="service_name" />
+                    <field name="service_image" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click" t-attf-style="border:1px solid #A5A5A5; padding:5px 0px 5px 1em; display:flex; justify-content:flex-start; border-radius:2px; margin:6px;">    
+                                <div t-attf-style="display:flex; gap:1.3em; padding:0em; align-items:center;">
+                                    <div class="o_kanban_image">
+                                        <field name="service_image" widget="image" options='{"size":[55,55]}'/>
+                                    </div>
+                                    <div t-attf-style="font-size:12px; padding:0em; line-height:1.8; font-weight:600; color:#595959;">
+                                        <div>
+                                            <t t-esc="record.service_name.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record id="bsi_service_action" model="ir.actions.act_window">
+            <field name="name">Service Details</field>
+            <field name="res_model">service</field>
+            <field name="view_mode">form,kanban</field>
+            <field name="view_id" ref="bsi_service_view_kanban"/>
+        </record>
+
+    </data>
+    
+
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_rooms_page_id" name="Room Page">
+        <t t-call="website.layout">
+            
+            
+                <div style="display:flex; justify-content:center; align-items:center;">
+                    <form action="" style="background-color:#e6dddd; padding:4px; margin-top:30px;  border-radius:2px;">
+                        <style>
+                            .input-text{ 
+                                padding:0.6em 0.2em;
+                                border: 1px solid #fff;
+                                width:500px;
+                            }
+                            .input-submit{
+                                padding:0.6em 2em;
+                                border-radius:2px;
+                                border: 1px solid #1565C0;
+                                background-color:#1565C0;
+                                color:#fff;
+                                font-weight:600;
+                            }
+
+                        </style>
+                            
+                        <div style="display:flex; gap:0.5em;">
+                            <div style="background-color:#fff; padding-left:0.5em; border-radius:2px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="background-color:#fff; margin:0px;" class="bi bi-house" viewBox="0 0 16 16">
+                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                                </svg>
+                                <input class="input-text" id="myInput" onkeyup="searchRoom()" type="search" placeholder="Room name"/>
+                            </div>
+                            <input class="input-submit" type="submit" value="Search"/>
+                        </div>
+                    </form>
+                </div>
+                    
+                <!-- Breadcrumb Section Begin -->
+                <div style="margin:20px;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="breadcrumb-text">
+                                    <div class="bt-option">
+                                        <a href="/">Home</a>
+                                        <span>Rooms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Breadcrumb Section End -->
+
+                <!-- Rooms Section Begin -->
+                <section class="rooms-section spad">
+
+                    <div class="container" id="no-rooms-found" style="display:none;">
+                        <div style="display:flex; justify-content:center; color:red; align-items:center; height:30vh; width:100%;">
+                            <h4>No Rooms Available By This Name</h4>
+                        </div>
+                    </div>
+
+                    <!-- <t t-if="data"> -->
+                        <div class="container">
+                            <div style="display:flex; flex-direction:column; gap:2em;">
+                                <t t-foreach="datas" t-as="data">
+                                    <div class="rooms_div">
+                                        <div class="bg-light" style="display:flex; border:1px solid #C6C6C6; gap:1em;">
+                                            <div>
+                                                <t t-if="data.room_image">
+                                                    <img
+                                                        t-if = "data.room_image"
+                                                        style="height:320px; width:550px;"
+                                                        t-att-src = "image_data_uri(data.room_image)"
+                                                        alt = "Cover Image" />
+                                                </t>
+                                            </div>
+                                            <div style="padding:1em; display:flex; justify-content:space-between; width:100%;">
+                                                <div style="display:flex; flex-direction:column; justify-content:space-between;">
+                                                    <div style="display:flex; flex-direction:column; gap:1em;">
+                                                        <h3 style="font-weight:600;" id="room_name"><t t-esc="data.room_name"/></h3>
+                                                        <t t-if="data.room_description">
+                                                            <span style="font-size:15px; color:gray;"><t t-esc="data.room_description"/></span>
+                                                        </t>
+                                                    </div>
+                                                    <div style="display:flex; gap:1em;">
+                                                        <h6 style="background-color:#e6dddd; border-radius:3px; color:#0A1D3B; padding:0.5em 1em; width:fit-content;">ADULT <t t-esc="data.max_adult"/></h6>
+                                                        <h6 style="background-color:#e6dddd; border-radius:3px; color:#0A1D3B; padding:0.5em 1em; width:fit-content;">CHILD <t t-esc="data.max_child"/></h6>
+                                                    </div>
+                                                </div>
+                                                <div style="display:flex; flex-direction:column; justify-content:end;  gap:1em;">
+                                                    <div class="rate" style="pointer-events:none; width:100%; text-align:center; align-items:center;">
+                                                        <t t-foreach="range(1,6)" t-as="i">
+                                                            <t t-if="data.average_rating &gt;= i">
+                                                                <span style="font-size: 25px;" class="fa fa-star checked"></span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span style="font-size: 25px;" class="fa fa-star"></span>
+                                                            </t>
+                                                        </t>
+                                                    </div>
+                                                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; border-radius:2px; padding:auto; width:170px; height:100%; background-color:#e6dddd;">
+                                                        <t t-if="data.offer">
+                                                            
+                                                            <h4 style="color:#0A1D3B;"><b>&#8377;<t t-esc="int(data.room_price * data.offer)"/></b></h4>
+                                                            <h6 style="color:#0A1D3B; font-weight:300; text-decoration:line-through;"><b>&#8377;<t t-esc="int(data.room_price)"/></b></h6>
+                                                            <span>/Pernight</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <h4 style="color:#0A1D3B;"><b>&#8377;<t t-esc="int(data.room_price)"/></b></h4>
+                                                            <span>/Pernight</span>
+                                                        </t>
+                                                    </div> 
+                                                    <div style="display:flex; justify-content:center; text-align:center; align-items:center; background-color:#0A1D3B; ">
+                                                        <a t-att-href="'/room/'+str(data.id)" style="color:#fff; padding:0.6em 0em; width:100%;"><b>ROOM DETAIL</b></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    <!-- </t> -->
+                    <!-- <t t-else="">
+                        <div class="container">
+                            <div style="display:flex; justify-content:center; align-items:center; height:30vh; width:100%;">
+                                <h4>No <span style="color:#023E8A;">Rooms</span> Available</h4>
+                            </div>
+                        </div>
+                    </t> -->
+
+                </section>
+                <!-- Rooms Section End -->
+
+            </t>
+    </template>
+</odoo>

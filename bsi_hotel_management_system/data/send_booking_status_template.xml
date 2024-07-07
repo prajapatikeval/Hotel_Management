@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Email template for reset password -->
+        <record id="send_booking_status_template" model="mail.template">
+            <field name="name">Send Booking Status Template</field>
+            <field name="model_id" ref="bsi_hotel_management_system.model_booking_detail"/>
+            <field name="subject">booking Status</field>
+            <field name="email_from">{{ user.email }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+            
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                    <tbody>
+                        <!-- HEADER -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tr><td valign="middle">
+                                        <span style="font-size: 10px;">The Leela</span><br/>
+                                        <span style="font-size: 20px; font-weight: bold;">
+                                            <t t-out="object.guest_name or ''">User</t>
+                                        </span>
+                                    </td>
+                                    </tr>
+                                    <tr><td colspan="2" style="text-align:center;">
+                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                    </td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- CONTENT -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tr><td valign="top" style="font-size: 13px;">
+                                        <div>
+                                            <b>Dear</b> <t t-out="object.guest_name or ''">Marc Demo</t>,<br/>
+                                            Your booking Number: <b><t t-out="object.reference_no"></t></b><br /><br />
+
+                                            <t t-if="object.status == 'confirm'">
+                                                Your booking from (email, <b><t t-out="object.email[:5]+'*' * (len(object.email[5:-4])) + object.email[-4:]"/></b>) 
+                                                <br /> on check in date <b><t t-out="object.check_in.strftime('%Y-%m-%d')"/></b>
+
+                                                <!-- <t t-if="object.booking_detail_ids &gt; 1">
+                                                    <br /> with room type <b><t t-out="object.booking_detail_ids[0].room_id.room_name"/></b> with previous
+                                                </t> -->
+                                                    <br /> <b><t t-out="object.booking_detail_ids[0].num_of_rooms"/></b> room 
+                                                    of room type <b>(<t t-out="object.booking_detail_ids[0].room_id.room_name"/>)</b>
+
+
+                                                <br />has been sucessfully <b><t t-out="object.status"></t>ed!</b><br/><br />
+                                            </t>
+                                            <t t-elif="object.status == 'cancel'">
+                                                Sorry! your booking from (email <b><t t-out="object.email[:5]+'*' * (len(object.email[5:-4])) + object.email[-4:]"/></b>) 
+                                                <br /> on check in date <b><t t-out="object.check_in.strftime('%Y-%m-%d')"/></b>
+                                                <br />has been <b>cancelled!</b><br/><br />
+                                            </t>
+                                            
+                                            <!-- Attech pdf -->
+
+                                            Thankyou,<br />
+                                            --<br/> The Leela
+                                        </div>
+                                    </td></tr>
+                                    <tr><td style="text-align:center;">
+                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                    </td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- FOOTER -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tr><td valign="middle" align="left">
+                                        The Leela
+                                    </td></tr>
+                                    <tr><td valign="middle" align="left" style="opacity: 0.7;">
+                                        +1 650-123-4567
+                                        | <a href="reservations@theleela.com" style="text-decoration:none; color: #454748;">reservations@theleela.com</a>
+                                        | <a href="https://www.theleela.com/" style="text-decoration:none; color: #454748;">https://www.theleela.com</a>
+                                        
+                                    </td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </td>
+                </tr>
+                <!-- POWERED BY -->
+                <tr>
+                    <td align="center" style="min-width: 590px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
+                    <tr><td style="text-align: center; font-size: 13px;">
+                        Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=auth" style="color: #875A7B;">Odoo</a>
+                    </td></tr>
+                    </table>
+                    </td>
+                </tr>
+            </table>
+        </field>
+    
+        <field name="lang">english</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</data>
+</odoo>

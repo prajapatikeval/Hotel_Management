@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_user_profile_id" name="User Profile" >
+        <t t-call="website.layout">
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    
+                
+                    <div class="row">
+                        <div class="col-lg-4">
+                        <div class="card mb-4 ">
+                            <div class="card-body text-center">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                class="rounded-circle img-fluid" style="width: 150px;"/>
+                            <h5 class="my-3"><t t-esc="user.name"/></h5>
+                            <p class="text-muted mb-1"><t t-esc="user.email"/></p>
+                            <p class="text-muted mb-4"><t t-esc="user.street"/></p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <form action="/profile" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <p class="mb-0">Full Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" style="border:0px none; color:#6b6b6b;" placeholder="first name" name="name" t-att-value="user.name"/>
+                                        
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <p class="mb-0">Email</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" style="border:0px none; color:#6b6b6b; width:100%;"  placeholder="Email" name="email" t-att-value="user.email"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <p class="mb-0">Phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" style="border:0px none; color:#6b6b6b;"  placeholder="enter phone number" name="phone" t-att-value="user.phone"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <p class="mb-0">Address</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" style="border:0px none; color:#6b6b6b;"  placeholder="Address" name="street" t-att-value="user.street"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <p class="mb-0">State</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" style="border:0px none; color:#6b6b6b;"  name="state"  placeholder="state..." t-att-value="user.state"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <p class="mb-0">Country</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" style="border:0px none; color:#6b6b6b;"  placeholder="country..." name="country" t-att-value="user.country"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+
+                                    <div>
+                                        <t t-if="message">
+                                            <p style="color:green;"><t t-esc="message" /></p>
+                                        </t>
+                                    </div>
+                                    <div class="row" style="padding-left:1em;">
+                                        <div class="mb-2">
+                                            <!-- <button type="button"  class="btn btn-primary">Change Password</button> -->
+                                            <a class="btn btn-primary" type="button" href="/change_password">Change password</a>
+                                            <button type="submit" class="btn btn-outline-primary ms-1">Update</button>
+                                        </div>
+                                    </div>
+
+                                    </div>
+                                </div>
+                            
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </section>
+        </t>
+    </template>
+</odoo>

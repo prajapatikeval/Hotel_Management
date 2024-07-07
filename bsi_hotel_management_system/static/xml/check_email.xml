@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_check_email_page_id" name="Forgot Password Page">
+        <t t-call="website.layout">
+                
+                <div class="container">
+                    <div style="display:flex; justify-content:center; padding:5em;">
+                        <div style="border-radius:3px; border:1px solid C1C1C1; padding:1rem 2rem; background-color:#CAD2C5; width:40%">
+                            <form action="" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div style="display:flex; flex-direction:column; text-align:center; gap:5px;">
+                                    <h3><b>OTP</b></h3>
+                                    <p>Please enter OTP</p>
+                                </div>
+                                
+                                <style>
+                                    .change_password_fields{
+                                        border-radius:3px;
+                                        border: 1px solid #C1C1C1;
+                                        color:#333;
+                                        padding:10px 7px; 
+                                        width:100%; 
+                                    }
+                                    .change_password{
+                                        text-decoration:none;
+                                    }
+                                    .change_password:hover{
+                                        color:#219EBC;
+                                        text-decoration:underline;
+                                    }
+                                </style>
+                                <div style="display:flex; flex-direction:column; gap:1em; margin-top:1em;">
+                                    <input type="char" class="change_password_fields" name="email" placeholder="Your Email" required="True"/>
+                                </div>
+                                <div style="margin-bottom:2em; display:flex; justify-content:space-between;">
+                                    <a class="change_password" href="/login">Go Back</a>
+                                </div>
+                                <div style="margin-bottom:2em;">
+                                    <t t-if="error">
+                                        <p style="color:red;"><t t-esc="error" /></p>
+                                        
+                                    </t>
+                                    <t t-if="message">
+                                        <p style="color:green;"><t t-esc="message" /></p>
+                                        
+                                    </t>
+                                </div> 
+                                <div style="display:flex; justify-content:center;">
+                                    <input style="padding:5px; width:100% " type="submit" value="Send OTP" required="True"/>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </t>
+    </template>
+</odoo>

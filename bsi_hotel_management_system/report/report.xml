@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="report_invoice_detail" model="ir.actions.report">
+        <field name="name">Print Invoice</field>
+        <field name="model">room.invoices</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bsi_hotel_management_system.report_invoice_detail_template</field>
+        <field name="report_file">bsi_hotel_management_system.report_invoice_detail_template</field>
+        <field name="binding_model_id" ref="model_room_invoices" />
+        <field name="binding_type">report</field>
+    </record>
+    
+    <record id="report_booking_detail" model="ir.actions.report">
+        <field name="name">Print Details</field>
+        <field name="model">booking.detail</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bsi_hotel_management_system.report_booking_detail_order_template</field>
+        <field name="report_file">bsi_hotel_management_system.report_booking_detail_order_template</field>
+        <field name="binding_model_id" ref="model_booking_detail" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

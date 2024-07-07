@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_room_page_id" name="Individual Room Page" >
+        <t t-call="website.layout">
+
+                <!-- Breadcrumb Section Begin -->
+                <div class="breadcrumb-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="breadcrumb-text">
+                                    <h2>Our Room</h2>
+                                    <div class="bt-option">
+                                        <a href="/rooms">Rooms</a>
+                                        <span><t t-esc="data.room_name"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Breadcrumb Section End -->
+
+                <!-- Room Details Section Begin -->
+                <section class="room-details-section spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="room-details-item">
+                                    <img
+                                    t-if = "data.room_image"
+                                    style="width:100%; max-height:540px;" t-att-src = "image_data_uri(data.room_image)"
+                                    alt = "Cover Image" />
+                                    <div class="rd-text">
+                                        <div class="rd-title">
+                                            <h3><t t-esc="data.room_name"/></h3>
+                                            
+                                            <div class="rdt-right" style="display:flex; justify-content:center; gap:1em; align-items:center; text-align:center;">
+                                                <div class="rate" style="pointer-events:none;">
+                                                    <t t-foreach="range(1,6)" t-as="i">
+
+                                                        <t t-if="data.average_rating &gt;= i">
+                                                            <span style="font-size: 25px;" class="fa fa-star checked"></span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span style="font-size: 25px;" class="fa fa-star"></span>
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                                <div>
+                                                    <a t-att-href="'/booking/'+str(data.id)">Booking Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h2>159&#8377;<span>/Pernight</span></h2>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="r-o">Size:</td>
+                                                    <td>30 ft</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="r-o">Capacity:</td>
+                                                    <td>Max person <t t-esc="data.max_adult + data.max_child"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="r-o">Bed:</td>
+                                                    <td><t t-esc="data.room_bed"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="f-para">
+                                            <t t-esc="data.room_description"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="rd-reviews">
+                                    <h4>Reviews</h4>
+                                    
+                                    <t t-foreach="data.room_review_ids" t-as="review">
+                                        <div class="review-item">
+                                            <div class="ri-text">
+                                                <!-- <span>27 Aug 2019</span> -->
+                                                <span class="review_title"><t t-esc="review.room_review_date"/></span>
+                                                <div class="rating">
+                                                    <div class="rate" style="pointer-events:none;">
+                                                        <t t-foreach="range(1,6)" t-as="i">
+
+                                                            <t t-if="review.room_review_rate &gt;= i">
+                                                                <span class="fa fa-star checked"></span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span class="fa fa-star"></span>
+                                                            </t>
+                                                        </t>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <h5><t t-esc="review.room_review_name"/></h5>
+                                                <p><t t-esc="review.room_review_description"/></p>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                
+                                <div class="review-add">
+                                    <h4>Add Review</h4>
+
+                                    <form action="/create/review/" class="ra-form" method="POST">
+                                        <input type="hidden" name="room_id" t-att-value="data.id"/>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="row">
+                                            <div class="col-lg-12" style="display:flex; justify-content:end;">
+                                                <div class="rating">
+                                                    <input type="radio" id="star5" name="rate" value="5"/>
+                                                    <label for="star5" title="text">5 stars</label>
+                                                    <input type="radio" id="star4" name="rate" value="4"/>
+                                                    <label for="star4" title="text">4 stars</label>
+                                                    <input type="radio" id="star3" name="rate" value="3"/>
+                                                    <label for="star3" title="text">3 stars</label>
+                                                    <input type="radio" id="star2" name="rate" value="2"/>
+                                                    <label for="star2" title="text">2 stars</label>
+                                                    <input type="radio" id="star1" name="rate" value="1"/>
+                                                    <label for="star1" title="text">1 star</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="room_review_name" t-att-value="room_review_name" id="room_review_name"
+                                                placeholder="Name*" required="required"/>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="room_review_email" t-att-value="room_review_email" id="room_review_email" placeholder="Email*" />
+                                            </div>
+                                            <div class="col-lg-12">
+                                                
+                                                <textarea name="room_review_description" t-att-value="room_review_description" id="room_review_description" placeholder="Your Review" required="required"></textarea>
+                                                
+                                                <button type="submit">Submit Now</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" >
+                                <div class="room-booking" style="background-color: #eee; padding:2em;">
+                                    <h3>Your Reservation</h3>
+                                    <form action="" class="reservation_form" id="check_booking_availablity" method="POST">
+                                        
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" t-att-value="data.id" id="form_room_id"/>
+                                        
+                                        <div class="check-date">
+                                            <label for="date-in">Check In:</label>
+                                            <input style="border:1px solid #C1C1C1; border-radius:5px;" type="text" autocomplete="off" class="date-input" id="date-in" name="date-in" required="True"/>
+                                            <i class="icon_calendar"></i>
+                                        </div>
+                                        <div class="check-date">
+                                            <label for="date-out">Check Out:</label>
+                                            <input style="border:1px solid #C1C1C1; border-radius:5px;" type="text" autocomplete="off" class="date-input" id="date-out" name="date-out" required="True" />
+                                            <i class="icon_calendar"></i>
+                                        </div>
+                                        <div class="select-option">
+                                            <label for="room">Room:</label>
+                                            <select id="room" name="room">
+                                                <t t-foreach="range(data.room_quentity)" t-as="i">
+                                                    <option t-att-value="i+1"><t t-esc="i+1"/> Room</option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <button type="submit">Check Availability</button>
+                                    </form>
+
+                                    <div style="padding-top:0.5em; margin-bottom:1em; position:relative;">
+                                        <p style="color:green; visibility: hidden; position:absolute;" id="success">Room Is Available</p>
+                                        <p style="color:red; visibility: hidden; position:absolute;" id="danger">Please Enter Valid Date</p>
+                                        <p style="color:red; visibility: hidden; position:absolute;" id="notsuccess">Sorry! No Rooms Available</p>
+                                    </div>
+                                </div>
+                                
+                                
+                                <div style="padding:1em; background-color:#e6dddd; margin-top:2em; border-radius:16px;">
+                                    <h4 style="font-weight:bold; color:#8A817C;">Services And Facility Included</h4>
+                                    <hr />
+                                    <div>
+                                        <h6 style="font-weight:bold;">Services Included</h6>
+                                        <div style="display:flex; flex-direction:column; gap:3px; padding:0.5em 1em;">
+                                            <t t-foreach="data.room_services_ids" t-as="service">
+                                                <div style="color:#0A1D3B;">
+                                                    <i class="fa fa-check"></i> <t t-esc="service.service_name"/>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 style="font-weight:bold;">Facilities Included</h6>
+                                        <div style="display:flex; flex-direction:column; gap:3px; padding:0.5em 1em;">
+                                            <t t-foreach="data.room_facility_ids" t-as="facility">
+                                                <div style="color:#0A1D3B;">
+                                                    <i class="fa fa-check"></i> <t t-esc="facility.facility_name"/>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="padding:1em; background-color:#e6dddd; margin-top:2em; border-radius:16px;">
+                                    <h4 style="font-weight:bold; color:#8A817C;">About Room</h4>
+                                    <hr />
+                                    <span><t t-esc="data.room_description"/></span>
+                                </div>
+                                
+                                <div style="padding:1em; background-color:#e6dddd; margin-top:2em; border-radius:16px;">
+                                    <h4 style="font-weight:bold; color:#8A817C;">Policy</h4>
+                                    <hr />
+                                    <span><t t-esc="data.room_policy"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Room Details Section End -->
+
+        </t>
+    </template>    
+</odoo>

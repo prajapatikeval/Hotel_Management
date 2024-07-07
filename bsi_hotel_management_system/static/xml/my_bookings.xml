@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_bookings_id" name="My Booking">
+        <t t-call="website.layout">
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    
+                
+                    <div class="row">
+                        
+                        <div class="col-lg-12 ">
+                            <div class="card mb-4" style="border-radius:16px;">
+                                <div class="card-body" style="">
+                                    <div class="row">
+                                        <div class="col-sm-12" style="display:flex; justify-content:space-between;">
+                                            <h5>Your Booking Details</h5>
+                                            <t t-if="delete_message != None">
+                                                <h5 style="color:red;"><t t-esc="delete_message"/></h5>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <t t-if="my_booking">
+                                <t t-foreach="my_booking" t-as="booking_detail">
+                                        <div class="bg-light" style="display:flex; padding:1em; border:1px solid #C6C6C6; border-radius:16px; gap:0.5em;">
+                                            <div style="padding:1em; display:flex; justify-content:space-between; width:100%;">
+                                                <div style="display:flex; flex-direction:column; justify-content:space-between;">
+                                                    <div style="display:flex; flex-direction:column; gap:1em;">
+                                                        <h3 style="font-weight:600;"><t t-esc="booking_detail.reference_no"/></h3>
+                                                    </div>
+                                                    <div style="display:flex; gap:1em;">
+                                                        <h6 style="background-color:#e6dddd; border-radius:3px; color:#0A1D3B; padding:0.5em 1em; width:fit-content;"><b>Check In: </b><t t-esc="booking_detail.check_in.strftime('%Y-%m-%d')"/></h6>
+                                                        <h6 style="background-color:#e6dddd; border-radius:3px; color:#0A1D3B; padding:0.5em 1em; width:fit-content;"><b>Check Out: </b><t t-esc="booking_detail.check_out.strftime('%Y-%m-%d')"/></h6>
+                                                    </div>
+                                                </div>
+                                                <div style="display:flex; flex-direction:column; justify-content:center;  gap:0.7em;">
+                                    
+                                                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; border-radius:2px; padding:0.6em 1.3em; width:170px;  background-color:#e6dddd;">
+                                                        <t t-if="booking_detail.total_discount > 0">
+                                                            
+                                                            <h4 style="color:#0A1D3B;"><b>&#8377;<t t-esc="int(booking_detail.grand_total)"/></b></h4>
+                                                            <h6 style="color:#0A1D3B; font-weight:300; text-decoration:line-through;"><b>&#8377;<t t-esc="int(booking_detail.total)"/></b></h6>
+                                                            <span>Total</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <h4 style="color:#0A1D3B;"><b>&#8377;<t t-esc="int(booking_detail.grand_total)"/></b></h4>
+                                                            <span>Total</span>
+                                                        </t>
+                                                    </div>
+                                                    <div style="display:flex; flex-direction:column; gap:0.2em;">
+                                                        <t t-if="booking_detail.status == 'confirm'">
+                                                            <div style="display:flex; justify-content:center;  text-align:center; align-items:center; background-color:#9D0208; ">
+                                                                <a t-att-href="'/cancel/booking_detail/'+str(booking_detail.id)" style="color:#fff; padding:0.6em 0em; width:100%;"><b>CANCEL BOOKING</b></a>
+                                                            </div>
+                                                        </t>
+                                                        <div style="display:flex; justify-content:center;  text-align:center; align-items:center; background-color:#0A1D3B; ">
+                                                            <a t-att-href="'/my_booking_detail/'+str(booking_detail.id)" style="color:#fff; padding:0.6em 0em; width:100%;"><b>BOOKING DETAIL</b></a>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr style="border:1px solid #eee; margin:7px; padding:0px;"/>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <div style="display:flex; justify-content:center; align-items:center; height:30vh; width:100%;">
+                                    <h4>No Booking Details Available > <a href="/rooms" style="color:#023E8A;">Book Now!</a></h4>
+                                </div>
+                            </t>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </t>
+    </template>    
+</odoo>

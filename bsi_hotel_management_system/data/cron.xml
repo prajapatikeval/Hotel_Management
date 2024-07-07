@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="cron_delete_old_checkout_bookings" model="ir.cron">
+            <field name="name">Delete Old Checkout Bookings</field>
+            <field name="model_id" ref="model_booking_detail"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.delete_old_checkout_bookings()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">1</field>
+            <field name="active" eval="True" />
+        </record>
+    </data>
+    
+    <data>
+        <record id="cron_auto_change_otp" model="ir.cron">
+            <field name="name">Auto Change OTP</field>
+            <field name="model_id" ref="model_res_users"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.auto_generate_otp()</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">1</field>
+            <field name="active" eval="True" />
+        </record>
+    </data>
+    
+</odoo>

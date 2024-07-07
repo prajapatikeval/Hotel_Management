@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_register_page_id" name="Register Page">
+        <t t-call="website.layout">
+                <div class="container">
+                    <div style="display:flex; justify-content:center; padding:5em;">
+                        <div style="border-radius:3px; border:1px solid C1C1C1; padding:1rem 2rem; background-color:#CAD2C5; width:70%">
+                            <form action="/register" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div style="display:flex; flex-direction:column; text-align:center; gap:5px;">
+                                    <h3><b>REGISTER</b></h3>
+                                    <p>Please enter your Details</p>
+                                </div>
+                                <style>
+                                    .register_fields{
+                                        border-radius:3px;
+                                        border: 1px solid #C1C1C1;
+                                        color:#333;
+                                        padding:10px 7px; 
+                                        width:100%; 
+                                    }
+                                </style>
+                                <div style="display:flex; flex-direction:column; gap:1em; margin-top:1em;">
+                                    <div style="display:flex; gap:1em;">
+                                        <input type="text" class="register_fields" name="name" placeholder="Name" required="True"/>
+                                        <input type="email" class="register_fields"  name="email" placeholder="Email" required="True"/>
+                                    </div>
+                                    <div style="display:flex; gap:1em;">
+                                        <input type="password" class="register_fields"  name="password" placeholder="Password" required="True"/>
+                                        <input type="password" class="register_fields"  name="confirm_password" placeholder="Confirm Password" required="True"/>
+                                    </div>
+                                    <input type="text" class="register_fields" pattern="\d{10,10}$" title="Please enter valid phone number" name="phone" placeholder="Phone" required="True"/>
+                                    <textarea type="text" style="height: 200px; resize:none; border-radius:3px; border: 1px solid #C1C1C1; color:#333; padding:7px; width:100% " name="address" placeholder="Address" required="True"/>
+                                </div>
+                                <div style=" margin-bottom:3em;">
+                                    <t t-if="error">
+                                        <p style="color:red;"><t t-esc="error"/></p>
+                                    </t>
+                                </div>
+                                
+                                <div style="display:flex; justify-content:center;">
+                                    <input style="padding:5px; width:100% " type="submit" value="Register" required="True"/>
+                                </div>
+                                <div style="margin-top:1em; display:flex; flex-direction:column; text-align:center;">
+                                    <p>Already Have Account? <a href="/login" style="color:#023E8A; font-weight:500;">Sign In</a></p>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </t>
+    </template>
+</odoo>

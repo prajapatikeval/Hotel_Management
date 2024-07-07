@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="report_invoice_detail_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="data">
+                <style>
+                    table,tr,th, td{
+                        border:1px solid #C1C1C1;
+                        border-collapse: collapse;
+                    }
+                    th, td{
+                        padding:0.3em;
+                    }
+                    th{
+                        background-color:#f5f5f5;
+                    }
+                    
+                </style>
+
+
+                <div class="page">
+                    <div class="row">
+                        <div class="col-12" style="text-align:right;" id="hash_header">
+                            <div>
+                                <h1>INVOICE</h1>
+                                <div style="color:gray">
+                                    THE LEELA <br/>
+                                    Address: Gandhinagar, Gujarat <br />
+                                    Phone: +91 (79) 690 21234 <br />
+                                    Email: reservations@theleela.com 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <hr />
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-12" style="display:flex; justify-content:space-between;">
+                            <div>
+                                <p style="color:gray;">BILLED TO</p>
+                                <t t-esc="data.invoice_guest_name"/>
+                                <t t-if="data.invoice_guest_phone">
+                                    , <br/><t t-esc="data.invoice_guest_phone"/>
+                                </t>
+                                <t t-if="data.invoice_guest_email">
+                                    , <br/><t t-esc="data.invoice_guest_email"/>
+                                </t>
+                                <t t-if="data.invoice_guest_address">
+                                    , <br/><t t-esc="data.invoice_guest_address"/>
+                                </t>
+                                <t t-if="data.invoice_guest_state">
+                                    , <br/><t t-esc="data.invoice_guest_state"/> 
+                                </t>
+                                <t t-if="data.invoice_guest_country">
+                                    ,<t t-esc="data.invoice_guest_country"/>
+                                </t>
+                            </div>
+                            <div style="text-align:right;">
+                                <p style="color:gray;">INVOICE NUMBER</p> 
+                                <t t-esc="data.invoice_reference"/>
+                                <br/> <br />
+                                <p style="color:gray;">INVOICE DATE</p>
+                                <t t-esc="data.invoice_date.strftime('%Y-%m-%d')"/>
+                                <br/>
+                                <p style="color:gray;">PAY DATE</p>
+                                <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-12" id="hash_data_consistency_table">
+                            <table>
+                                <thead style="display: table-row-group">
+                                    <tr>
+                                        <th style="text-align:left; width: 20%" scope="col">Room Type</th>
+                                        <th style="text-align:left; width: 20%" scope="col">Price Per Night</th>
+                                        <th style="text-align:left; width: 10%" scope="col">Discount</th>
+                                        <th style="text-align:left; width: 10%" scope="col">Total Days</th>
+                                        <th style="text-align:left; width: 10%" scope="col">Room Quentity</th>
+                                        <th style="text-align:left; width: 10%" scope="col">Adults</th>
+                                        <th style="text-align:left; width: 10%" scope="col">Child</th>
+                                        <th style="text-align:left; width: 20%" scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data.invoice_ids" t-as="invoice">
+                                        <tr>
+                                            <td><span t-field="invoice.room_id" /></td>
+                                            <td><span t-field="invoice.price"/></td>
+                                            <td><span t-esc="invoice.discount * (100)"/>%</td>
+                                            <td><span t-esc="invoice.total_days"/></td>
+                                            <td><span t-field="invoice.num_of_rooms"/></td>
+                                            <td><span t-field="invoice.adult"/></td>
+                                            <td><span t-field="invoice.child"/></td>
+                                            <td><span t-field="invoice.sub_total"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row" style="text-align:right;">
+                    <div class="col-12">
+                        <div style="color:gray;">
+                            <h4>SUBTOTAL: <t t-esc="data.invoice_total"/></h4>
+                            <h4>DISCOUNT: <t t-esc="data.invoice_total_discount"/></h4>
+                        </div>
+                        <h3>INVOICE TOTAL: <t t-esc="data.invoice_grand_total"/></h3>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_booking_id" name="User Booking" >
+        <t t-call="website.layout">
+            <div class="container user_profile rounded bg-white mt-5 mb-5">
+                <style>
+                    .change_password{
+                        text-decoration:none;
+                        margin-bottom:1px;
+                    }
+                    .change_password:hover{
+                        color:#219EBC;
+                        text-decoration:underline;
+                    }
+                </style>
+                <div>
+                    <div class="breadcrumb-text" style="text-align:start;">
+                        <div class="bt-option">
+                            <a t-att-href="'/room/'+str(data.id)"><t t-esc="data.room_name"/></a>
+                            <span style="color:#8A817C; font-weight:600;">Book A Room</span>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin-bottom:20px;"/>
+                <form action="" method="POST" id="create_booking_form">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" t-att-value="data.id" id="form_room_booking_id"/>
+                    
+                    <div class="row"  style="display:flex; justify-content:center;">
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" style="border:0px none; color:#6b6b6b;" placeholder="first name" id="name" name="name" t-att-value="user.name"/>
+                                    <!-- <p class="text-muted mb-0">Johnatan Smith</p> -->
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" style="border:0px none; color:#6b6b6b; width:100%;"  placeholder="Email" id="email" name="email" t-att-value="user.email"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" style="border:0px none; color:#6b6b6b;"  placeholder="enter phone number" id="phone" name="phone" t-att-value="user.phone"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <p class="mb-0">Address</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" style="border:0px none; color:#6b6b6b;"  placeholder="Address" id="street" name="street" t-att-value="user.street"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <p class="mb-0">State</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" style="border:0px none; color:#6b6b6b;"  name="state" id="state"  placeholder="state" t-att-value="user.state"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <p class="mb-0">Country</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" style="border:0px none; color:#6b6b6b;"  placeholder="country" id="country" name="country" t-att-value="user.country"/>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div>
+                            <div class="room-booking">
+                                <h3>Your Reservation</h3>
+                                    
+                                    <div class="reservation_form">
+                                        <div class="check-date">
+                                            <label for="date-in">Check In:</label>
+                                            <input type="text" autocomplete="off" class="date-input" id="date-in" name="date-in" required="True"/>
+                                            <i class="icon_calendar"></i>
+                                        </div>
+                                        <div class="check-date">
+                                            <label for="date-out">Check Out:</label>
+                                            <input type="text" autocomplete="off" class="date-input" id="date-out" name="date-out" required="True"/>
+                                            <i class="icon_calendar"></i>
+                                        </div>
+                                        <div class="select-option">
+                                            <label for="room">Room:</label>
+                                            <select id="room" name="room">
+                                                <t t-foreach="range(data.room_quentity)" t-as="i">
+                                                    <option t-att-value="i+1"><t t-esc="i+1"/> Room</option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <button type="submit">Confirm Booking</button>
+                                    </div>
+
+                                <div>
+                                    <p style="color:green; display:none;" id="booking_success">Your Room Has Been Succesfully Booked!</p>
+                                    <p style="color:red; display:none;" id="booking_danger">Please Enter Valid Date</p>
+                                    <p style="color:red; display:none;" id="booking_notsuccess">Sorry! No Rooms Available</p>
+                                    <t t-if="available">
+                                        <p style="color:green;"><t t-esc="message" /></p>
+                                    </t>
+                                    <t t-else="">
+                                        <p style="color:red;"><t t-esc="message" /></p>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            
+            </div>
+        </t>
+    </template>
+</odoo>

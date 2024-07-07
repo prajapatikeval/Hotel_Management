@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <data>
+        
+        
+
+        <record id="bsi_add_facility_form" model="ir.ui.view">
+            <field name="name">facility.form</field>
+            <field name="model">facility</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="facility_image" widget="image" options='{"size":[250,180]}' />
+                                <field name="facility_name" placeholder="Facility Name"/>
+                            </group>
+                            <group>
+                                <field name="color" widget="color_picker"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="bsi_facility_view_kanban" model="ir.ui.view">
+            <field name="name">facility.view.kanban</field>
+            <field name="model">facility</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="facility_name" />
+                    <field name="facility_image" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click" t-attf-style="border:1px solid #A5A5A5; padding:5px 0px 5px 1em; display:flex; justify-content:flex-start; border-radius:2px; margin:6px;">    
+                                <div t-attf-style="display:flex; gap:1.3em; padding:0em; align-items:center;">
+                                    <div class="o_kanban_image">
+                                        <field name="facility_image" widget="image"/>
+                                    </div>
+                                    <div t-attf-style="font-size:12px; padding:0em; line-height:1.8; font-weight:600; color:#595959;">
+                                        <div>
+                                            <t t-esc="record.facility_name.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record id="bsi_facility_action" model="ir.actions.act_window">
+            <field name="name">Facility Details</field>
+            <field name="res_model">facility</field>
+            <field name="view_mode">form,kanban</field>
+            <field name="view_id" ref="bsi_facility_view_kanban"/>
+        </record>
+
+    </data>
+    
+
+</odoo>

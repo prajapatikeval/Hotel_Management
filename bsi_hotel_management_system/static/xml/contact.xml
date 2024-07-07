@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_contact_us_id" name="Contact">
+        <t t-call="website.layout">
+        
+                <!-- Contact Section Begin -->
+                <section class="contact-section spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="contact-text">
+                                    <h2>Contact Info</h2>
+                                    <p>The Leela a luxury hotel</p>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="c-o">Address:</td>
+                                                <td>Gandhinagar, Gujarat</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="c-o">Contact:</td>
+                                                <td>+91 (79) 690 21234</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="c-o">Email:</td>
+                                                <td>reservations@theleela.com</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+                                <form action="/contact" class="contact-form" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" placeholder="Your Name" name="name" />
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="text" placeholder="Your Email" name="email"/>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <textarea placeholder="Your Message" name="message"></textarea>
+                                            <div style="margin-bottom:1.2em;">
+                                                <t t-if="success">
+                                                    <p style="color:green;"><t t-esc="error" /></p>
+                                                </t>
+                                                <t t-else="">
+                                                    <p style="color:red;"><t t-esc="error" /></p>
+                                                </t>
+                                            </div>
+                                            <button type="submit">Submit Now</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d234932.92918100435!2d72.35412683300845!3d23.066802567038895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2b70dc34918b%3A0x95f044b6110e17cb!2sThe%20Leela%20Gandhinagar!5e0!3m2!1sen!2sin!4v1712226753084!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </section>
+                <!-- Contact Section End -->
+                
+        </t>
+    </template>
+</odoo>

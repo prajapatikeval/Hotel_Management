@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_my_booking_detail_page_id" name="Booking Detail" >
+        <t t-call="website.layout">
+
+
+                <section>
+                    <div class="container" style="margin-top:20px; margin-bottom:20px;">
+                        <div class="row" style="border-radius:16px; background-color: #e6dddd; display:flex; flex-direction:column; gap:2em; padding:3em 5em;">
+                            <div>
+
+                                <div>
+                                    <div class="breadcrumb-text" style="text-align:start;">
+                                        <div class="bt-option">
+                                            <a href="/my_bookings">My Bookings</a>
+                                            <span style="color:#8A817C; font-weight:600;"><t t-esc="data.reference_no"/></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2 style="font-weight:600;">Review Your booking</h2>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-lg-8" style="padding-right:10px; padding-left:0px; ">
+                                <div style="background-color: #e6dddd; border-radius:16px;">
+                                    
+                                    <div style="padding:2em 0em 0em 1em;">
+                                        <h3 style="font-weight:600;">Booking Information</h3>
+                                    </div>
+                                    <hr style="margin-top:2em; margin-bottom:1em;"/>
+                                    
+                                    <div style="padding :1em;">
+                                        
+                                        <div style="display:flex; gap:1em;">
+                                            <div style="padding:1em; display:flex; flex-direction:column; gap:0.5em; width:100%;">
+                                                <div style="display:flex; text-align:center; justify-content:space-between;">
+                                                    <h4 style="font-weight:600;"><t t-esc="data.reference_no"/></h4>
+                                                    <t t-if="data.status == 'confirm'">
+                                                        <div style="display:flex; justify-content:center; border-radius:10px; text-align:center; align-items:center; background-color:#9D0208; ">
+                                                            <a t-att-href="'/cancel/booking_detail/'+str(data.id)" style="color:#fff; padding:0.6em 1em; width:100%;"><b>CANCEL BOOKING</b></a>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                                <div style="color:gray;">The Leela Gandhinagar Gujarat - 382008</div>
+                                            
+                                            </div>
+                                        </div>
+
+                                        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1em; margin-top:2em;">
+                                            <div style="background-color:#fff; border:1px solid #BCB8B1; padding:1em 2em; border-radius:16px;">
+                                                <span style="color:gray;">
+                                                    Check-in
+                                                </span>
+                                                <h5 style="font-weight:600; font-size:20px">
+                                                    <t t-esc="data.check_in.strftime('%d %B %Y')"/>
+                                                </h5>
+                                                <span style="color:gray;">
+                                                    <t t-esc="data.check_in.strftime('%H:%M %p')"/>
+                                                </span>
+                                            </div>
+                                            <div style="background-color:#fff; border:1px solid #BCB8B1; padding:1em 2em; border-radius:16px;">
+                                                <span style="color:gray;">
+                                                    Check-out
+                                                </span>
+                                                <h5 style="font-weight:600; font-size:20px">
+                                                    <t t-esc="data.check_out.strftime('%d %B %Y')"/>
+                                                </h5>
+                                                <span style="color:gray;">
+                                                    <t t-esc="data.check_out.strftime('%H:%M %p')"/>
+                                                </span>
+
+                                            </div>
+                                            <div style="background-color:#fff; border:1px solid #BCB8B1; padding:1em 2em; border-radius:16px;">   
+                                                <span style="color:gray;">
+                                                    <!-- Days &#38; Persons -->
+                                                    Total Days
+                                                </span>
+                                                <span style="display:flex; gap:2px;">
+                                                    <t t-if="data.booking_detail_ids[0].total_days == 1">
+                                                        <span style="font-weight:600; font-size:20px">
+                                                            <t t-esc="data.booking_detail_ids[0].total_days"/> Night
+                                                        </span>
+                                                        <span style="font-weight:600; font-size:20px"> - </span>
+                                                        <span style="font-weight:600; font-size:20px">
+                                                            <t t-esc="data.booking_detail_ids[0].total_days"/> Day
+                                                        </span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span style="font-weight:600; font-size:20px">
+                                                            <t t-esc="data.booking_detail_ids[0].total_days - 1"/> Nights
+                                                        </span>
+                                                        <span style="font-weight:600; font-size:20px"> - </span>
+                                                        <span style="font-weight:600; font-size:20px">
+                                                            <t t-esc="data.booking_detail_ids[0].total_days"/> Days
+                                                        </span>
+                                                    </t>
+                                                    
+                                                </span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" style="padding-left:10px; padding-right:0px;">
+                                <div style="background-color: #e6dddd; border-radius:16px;">
+                                    <div style="padding:1em 0em 1em 1em;">
+                                        <h5 style="font-weight:600;">Price Summary</h5>
+                                    </div>
+                                    <hr style="margin-top:0em; margin-bottom:1em;"/>
+                                    <div style="padding:1em;">
+                                        <div style="display:flex; justify-content:space-between; gap:0.5em; font-size:15px;">
+                                            <span>Room Charges</span>
+                                            <span  style="font-size:18px;">
+                                                &#8377;<t t-esc="data.total"/>
+                                            </span>
+                                        </div>
+                                        <div style="display:flex; justify-content:space-between; font-size:15px;">
+                                            <span>Total Discount <span style="padding:1px 4px; border-radius:5px; color:white; background-color:rgb(214, 41, 62);"><t t-esc="data.total_discount / (100)"/>%</span></span>
+                                            <span  style="font-size:18px; color:green;">
+                                                - &#8377;<t t-esc="data.total_discount"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr style="margin-top:0em; margin-bottom:1em;"/>
+                                    <div style="padding:1em;">
+                                        <div style="display:flex; font-weight:700; justify-content:space-between; font-size:22px;">
+                                            <span>Total</span>
+                                            <span  style="font-size:22px;">
+                                                &#8377;<t t-esc="data.grand_total"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:1em; display:flex; flex-direction:column; gap:0.2em;">
+
+                                    <a t-attf-href="/report/pdf/bsi_hotel_management_system.report_booking_detail_order_template/#{data.id}" target="_blank">
+                                        <div style="background-color: #1565C0; padding:0.8em 1em; color:#fff; font-weight:600; text-align:center; border-radius:16px;">
+                                            Print Order Details
+                                        </div>
+                                    </a>
+                                    <t t-if="invoice_id">
+                                        <a t-attf-href="/report/pdf/bsi_hotel_management_system.report_invoice_detail_template/#{invoice_id.id}" target="_blank">
+                                            <div style="background-color: #1565C0; padding:0.8em 1em; color:#fff; font-weight:600; text-align:center; border-radius:16px;">
+                                                Print Invoice
+                                            </div>
+                                        </a>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding:1em; margin-top:20px; background-color: #e6dddd; border-radius:16px;">
+                            <h4 style="font-weight:600; margin-bottom:1em;">Room Booking Information</h4>
+                            <table class="table table-hover" style="background-color:#fff; border-radius:16px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Room Name</th>
+                                        <th scope="col">Room Price</th>
+                                        <th scope="col">Discount</th>
+                                        <th scope="col">Total Rooms</th>
+                                        <th scope="col">Total Days</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Rating</th>
+                                        <t t-if="data.status == 'confirm'">
+                                            <th scope="col"></th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        <t t-foreach="data.booking_detail_ids" t-as="booking_line">
+                                            <tr>
+                                                <th><t t-esc="booking_line.room_id.room_name"/></th>
+                                                <td><t t-esc="booking_line.price"/></td>
+                                                <td><t t-esc="booking_line.discount * (100)"/>%</td>
+                                                <td><t t-esc="booking_line.num_of_rooms"/></td>
+                                                <td><t t-esc="booking_line.total_days"/></td>
+                                                <td><t t-esc="booking_line.sub_total"/></td>
+                                                <td>
+                                                    <t t-foreach="range(1,6)" t-as="i">
+                                                        <t t-if="booking_line.room_id.average_rating &gt;= i">
+                                                            <span style="font-size: 20px;" class="fa fa-star checked"></span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span style="font-size: 20px;" class="fa fa-star"></span>
+                                                        </t>
+                                                    </t>
+                                                </td>
+                                                <t t-if="data.status == 'confirm'">
+                                                    <td>
+                                                        <div style="display:flex; justify-content:center; border-radius:10px; text-align:center;  background-color:#9D0208; ">
+                                                            <a t-att-href="'/cancel/booking/'+str(booking_line.id)" style="color:#fff; padding:0.1em 1em; width:100%;"><b>REMOVE ROOM</b></a>
+                                                        </div>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </section>
+                <!-- Room Details Section End -->
+
+        </t>
+    </template>    
+</odoo>

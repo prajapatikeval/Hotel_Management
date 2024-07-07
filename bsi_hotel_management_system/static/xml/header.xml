@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    
+    <template id="header_layout" name="Header Layout">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700&#38;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&#38;display=swap" rel="stylesheet" />
+
+        <!-- Header Section Begin -->
+
+        <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light" style="padding-left:5em; padding-right:2em;">
+            <a class="navbar-brand" href="/">
+                <h3>The Leela</h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rooms">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact Us</a>
+                    </li>
+
+                    <t t-if="request.env.user.id != request.website.user_id.id">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <b><t t-esc="request.env.user.name"/></b>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <t t-if="request.env.user.has_group('bsi_hotel_management_system.group_hotel_admin')">
+                                    <a class="dropdown-item" href="/web">Admin Dashboard</a>
+                                </t>
+                                <a class="dropdown-item" href="/my_bookings">My Bookings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </li>                        
+                    </t>
+                    <t t-else="">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Header End -->
+    </template>
+
+</odoo>

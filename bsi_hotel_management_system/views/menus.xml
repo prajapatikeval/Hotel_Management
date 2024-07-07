@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <menuitem
+            id="bsi_hotel_root_menu"
+            name="Hotel Management"
+            sequence="10"
+            groups="bsi_hotel_management_system.group_hotel_admin"/>
+
+        <!-- Dashboard -->
+        <menuitem 
+            id = "bsi_hotel_dashboard"
+            name = "Dashboard"
+            parent="bsi_hotel_root_menu"
+            action="bsi_dashboard_action"
+            sequence="20"
+            />
+        
+        <!-- Rooms -->
+        <menuitem 
+            id = "bsi_hotel_rooms"
+            name = "Rooms"
+            parent="bsi_hotel_root_menu"
+            action="bsi_room_action"
+            sequence="21"/>
+
+        <!-- Hotel Booking -->
+        <menuitem 
+            id = "bsi_hotel_booking"
+            name = "Hotel Booking"
+            parent="bsi_hotel_root_menu"
+            action="bsi_booking_detail_form"
+            sequence="22"/>
+
+        <!-- Room Invoices -->
+        <menuitem 
+            id = "bsi_hotel_room_invoices"
+            name = "Room Invoices"
+            parent="bsi_hotel_root_menu"
+            action="bsi_room_invoices"
+            sequence="23"/>
+
+        <!-- Configuration -->
+        <menuitem 
+        id = "bsi_hotel_configuration"
+        name = "Configuration"
+        parent="bsi_hotel_root_menu"
+        sequence="24"/>
+
+        <!-- Service and Facility -->
+        <menuitem 
+            id = "bsi_hotel_configuration_service_and_facility"
+            name = "Service and Facility"
+            parent="bsi_hotel_configuration"
+            sequence="30"/>
+
+            <!-- Service -->
+            <menuitem 
+                id = "bsi_hotel_configuration_service"
+                name = "Service"
+                action="bsi_service_action"
+                parent="bsi_hotel_configuration_service_and_facility"
+                sequence="40"/>
+                
+            <!-- Facility -->
+            <menuitem 
+                id = "bsi_hotel_configuration_facility"
+                name = "Facility"
+                action="bsi_facility_action"
+                parent="bsi_hotel_configuration_service_and_facility"
+                sequence="40"/>
+        
+        
+    </data>
+    
+</odoo>

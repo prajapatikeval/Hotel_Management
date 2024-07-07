@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="bsi_home_page_id" name="Home page">
+        <t t-call="website.layout">
+
+                <!-- Hero Section Begin -->
+                <section class="hero-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="hero-text">
+                                    <h1>The Leela A Luxury Hotel</h1>
+                                    <p>Here are the best hotel booking sites, including recommendations 
+                                        for finding low-priced hotel rooms.</p>
+                                    <a href="/rooms" class="primary-btn">Discover Now</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="hero-slider owl-carousel" >
+                        <div class="hs-item set-bg" data-setbg="bsi_hotel_management_system/static/src/img/hero/hero-1.jpg"></div>
+                        <div class="hs-item set-bg" data-setbg="bsi_hotel_management_system/static/src/img/hero/hero-2.jpg"></div>
+                        <div class="hs-item set-bg" data-setbg="bsi_hotel_management_system/static/src/img/hero/hero-3.jpg" ></div>
+                    </div>
+                </section>
+                <!-- Hero Section End -->
+
+                <!-- About Us Section Begin -->
+                <section class="aboutus-section spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="about-text">
+                                    <div class="section-title">
+                                        <span>About Us</span>
+                                        <h2>Intercontinental <br />Leela Hotel</h2>
+                                    </div>
+                                    <p class="f-para">Founded in 2004, and based on the airline alliance model, Global Hotel Alliance (GHA) is today the world’s largest alliance of independent hotel brands.
+
+                                    </p>
+                                    <p class="s-para">GHA uses a shared technology platform to drive incremental revenues and create cost savings for its member brands, and operates a multi-brand loyalty programme, DISCOVERY, which has over seven million members. </p>
+                                    <a href="/about" class="primary-btn about-btn">Read More</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="about-pic">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <img src="bsi_hotel_management_system/static/src/img/about/about-1.jpg" alt="" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <img src="bsi_hotel_management_system/static/src/img/about/about-2.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- About Us Section End -->
+
+                <!-- Services Section End -->
+                <section class="services-section spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title">
+                                    <span>What We Do</span>
+                                    <h2>Discover Our Services</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="service-item">
+                                    <i class="flaticon-036-parking"></i>
+                                    <h4>Travel Plan</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="service-item">
+                                    <i class="flaticon-033-dinner"></i>
+                                    <h4>Catering Service</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="service-item">
+                                    <i class="flaticon-026-bed"></i>
+                                    <h4>Babysitting</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="service-item">
+                                    <i class="flaticon-024-towel"></i>
+                                    <h4>Laundry</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="service-item">
+                                    <i class="flaticon-044-clock-1"></i>
+                                    <h4>Hire Driver</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="service-item">
+                                    <i class="flaticon-012-cocktail"></i>
+                                    <h4>Bar &#38; Drink</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Services Section End -->
+
+                <!-- Blog Section Begin -->
+                <section class="blog-section spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title">
+                                    <span>Hotel News</span>
+                                    <h2>Our Blog &#38; Event</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="blog-item set-bg" data-setbg="bsi_hotel_management_system/static/src/img/blog/blog-1.jpg">
+                                    <div class="bi-text">
+                                        <span class="b-tag">Travel Trip</span>
+                                        <h4><a href="#">Tremblant In Canada</a></h4>
+                                        <div class="b-time"><i class="icon_clock_alt"></i> 15th April, 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="blog-item set-bg" data-setbg="bsi_hotel_management_system/static/src/img/blog/blog-2.jpg">
+                                    <div class="bi-text">
+                                        <span class="b-tag">Camping</span>
+                                        <h4><a href="#">Choosing A Static Caravan</a></h4>
+                                        <div class="b-time"><i class="icon_clock_alt"></i> 15th April, 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="blog-item set-bg" data-setbg="bsi_hotel_management_system/static/src/img/blog/blog-3.jpg">
+                                    <div class="bi-text">
+                                        <span class="b-tag">Event</span>
+                                        <h4><a href="#">Copper Canyon</a></h4>
+                                        <div class="b-time"><i class="icon_clock_alt"></i> 21th April, 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="blog-item small-size set-bg" data-setbg="bsi_hotel_management_system/static/src/img/blog/blog-wide.jpg">
+                                    <div class="bi-text">
+                                        <span class="b-tag">Event</span>
+                                        <h4><a href="#">Trip To Iqaluit In Nunavut A Canadian Arctic City</a></h4>
+                                        <div class="b-time"><i class="icon_clock_alt"></i> 08th April, 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="blog-item small-size set-bg" data-setbg="bsi_hotel_management_system/static/src/img/blog/blog-10.jpg">
+                                    <div class="bi-text">
+                                        <span class="b-tag">Travel</span>
+                                        <h4><a href="#">Traveling To Barcelona</a></h4>
+                                        <div class="b-time"><i class="icon_clock_alt"></i> 12th April, 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Blog Section End -->
+
+            </t>
+            
+    </template>
+</odoo>

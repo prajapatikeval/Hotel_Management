@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="act_booking_graph" model="ir.actions.act_window">
+            <field name="name">Graph</field>
+            <field name="res_model">booking.detail</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="booking_detail_view_graph"/>
+        </record>
+
+        <record id="act_rooms" model="ir.actions.act_window">
+            <field name="name">Rooms</field>
+            <field name="res_model">room.type</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="room_type_view_graph"/>
+        </record>
+        
+        <record id="act_booking_calendar" model="ir.actions.act_window">
+            <field name="name">Calendar</field>
+            <field name="res_model">booking.detail</field>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="booking_detail_view_calendar"/>
+        </record>
+        
+        <record id="bsi_dashboard_view" model="ir.ui.view">
+            <field name="name">Dashboard.form</field>
+            <field name="model">board.board</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard">
+
+                    <!-- style for hiding change layout button -->
+                    <style>
+                        .oe_dashboard_link_change_layout{
+                            display: none;
+                        }
+                        
+                    </style>
+                    
+                    <board style="1-1 changing">
+                        <column>
+                            <action 
+                            string="Rooms"
+                            name="%(act_rooms)d"/>
+                        </column>
+                        <column>
+                            <action
+                                string="Room bookings"
+                                name="%(act_booking_graph)d"/>
+                        </column>
+                    </board>       
+                    <board>
+                        <column>
+                            <action 
+                                    string="Book Room"
+                                    name="%(act_booking_calendar)d"
+                                />
+                        </column>
+                        
+                    </board>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="bsi_dashboard_action" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="bsi_dashboard_view"/>
+        </record>
+
+
+    
+    </data>
+    
+
+</odoo>
